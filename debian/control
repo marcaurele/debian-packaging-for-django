@@ -21,7 +21,7 @@ Build-Depends: debhelper (>= 9),
                ca-certificates
 Standards-Version: 3.9.5
 
-Package: bookr
+Package: polls
 Architecture: amd64
 Pre-Depends: dpkg (>= 1.16.1),
              ${misc:Pre-Depends}
