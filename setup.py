@@ -5,6 +5,11 @@ from setuptools import find_packages, setup
 with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as readme:
     README = readme.read()
 
+with open('requirements.txt') as reqs:
+    install_requires = [line for line in reqs.read().split('\n') if (
+        line and not line.startswith('--'))
+    ]
+
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
@@ -16,9 +21,9 @@ setup(
     license='BSD License',  # example license
     description='A simple Django app to conduct Web-based polls.',
     long_description=README,
-    url='https://www.example.com/',
-    author='Your Name',
-    author_email='yourname@example.com',
+    url='https://github.com/marcaurele/debian-packaging-for-django',
+    author='MA Brothier',
+    author_email='m@brothier.org',
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',
@@ -34,4 +39,7 @@ setup(
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     ],
+    entry_points={'console_scripts': ['polls-admin=mysite:main']},
+    install_requires=install_requires,
+    zip_safe=False,
 )

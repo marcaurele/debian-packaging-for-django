@@ -1,0 +1,32 @@
+Source: polls
+Section: python
+Priority: extra
+Homepage: https://github.com/marcaurele/debian-packaging-for-django
+Maintainer: MA Brothier <m@brothier.org>
+Build-Depends: debhelper (>= 9),
+               dh-virtualenv (>= 0.8),
+               lsb-release,
+               dh-systemd,
+               python3.5,
+               python3.5-dev,
+               python3.5-venv,
+               libxslt1-dev,
+               libxml2-dev,
+               libffi-dev,
+               libpq-dev,
+               zlib1g-dev,
+               libjpeg-dev,
+               libcairo2-dev,
+               libpango1.0-dev,
+               ca-certificates
+Standards-Version: 3.9.5
+
+Package: bookr
+Architecture: amd64
+Pre-Depends: dpkg (>= 1.16.1),
+             ${misc:Pre-Depends}
+Depends: python3.5 (>= ${python:Version}),
+         ${shlibs:Depends},
+         libpango-1.0-0, libcairo2,
+         ${misc:Depends}, adduser
+Description: Django's tutorial polls application

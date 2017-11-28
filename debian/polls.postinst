@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -e
+
+case "$1" in
+    configure)
+        adduser --system --disabled-password --disabled-login \
+                --quiet --force-badname --group djapp
+        ;;
+esac
+
+exit 0

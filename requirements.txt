@@ -1,3 +1,8 @@
+# Dev packages
 django
-gunicorn
 pytz
+
+# Ops packages
+gunicorn
+env-cmd
+envdir

@@ -1,0 +1,28 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+export LANG=C.UTF-8
+export LC_ALL=C.UTF-8
+
+DISTRIBUTION := $(shell lsb_release -sc)
+VERSION := $(shell date +%Y.%m.%d-%H%M%S)
+DEBVERSION := $(VERSION)-0~$(DISTRIBUTION)0
+PACKAGE = $(shell dh_listpackages|head -n 1|cut -d '-' -f 1)
+SYSCONFDIR = "/etc"
+DESTDIR = "debian/tmp"
+
+# Uncomment this to turn on verbose mode.
+# export DH_VERBOSE=1
+
+%:
+	dh $@ --with python-virtualenv --with systemd
+
+override_dh_strip:
+
+# dh_gencontrol -- -v$(DEBVERSION) -Vpython:Version=$(shell python3.5 -c 'import platform; print(platform.python_version())')
+override_dh_gencontrol:
+	dh_gencontrol -- -v$(DEBVERSION) -Vpython:Version=3.5
+
+export DH_VIRTUALENV_INSTALL_ROOT=/usr/share
+
+override_dh_virtualenv:
+	dh_virtualenv --extra-pip-arg="--no-binary=:all:" --python /usr/bin/python3.5 --no-test --builtin-venv
