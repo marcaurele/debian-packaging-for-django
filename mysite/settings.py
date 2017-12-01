@@ -12,6 +12,22 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
+from django.core.exceptions import ImproperlyConfigured
+
+
+def env(var_name, default=None):
+    """
+    To retrieve vars from environment variables.
+    """
+    if var_name in os.environ:
+        return os.environ[var_name]
+    elif default is not None:
+        return default
+    else:
+        raise ImproperlyConfigured(
+            "Set the %s environment variable" % var_name)
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -77,7 +93,9 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(
+            env('DATABASE_DIR', BASE_DIR),
+            'polls.sqlite3'),
     }
 }
 
