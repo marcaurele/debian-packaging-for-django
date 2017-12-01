@@ -6,6 +6,11 @@ case "$1" in
     configure)
         adduser --system --disabled-password --disabled-login \
                 --quiet --force-badname --group djapp
+        touch /var/log/django-polls.log
+        touch /usr/share/polls/lib/python3.5/site-packages/db.sqlite3
+        chown djapp:djapp /usr/share/polls/lib/python3.5/site-packages/db.sqlite3
+        chown djapp:djapp /var/log/django-polls.log
+        /usr/bin/polls-admin django-admin migrate
         ;;
 esac
 
