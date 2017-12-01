@@ -4,8 +4,9 @@ Description="Django polls web application"
 [Service]
 Type=simple
 ExecStart=/usr/share/polls/bin/gunicorn -c /etc/polls/gunicorn.conf.py mysite.wsgi
+ConditionPathExists=/etc/polls/web.conf
 ExecReload=/bin/kill -HUP $MAINPID
-User=djapp
+User=_djapp
 LimitNOFILE=4096
 Restart=on-failure
 

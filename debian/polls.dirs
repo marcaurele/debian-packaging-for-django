@@ -1,0 +1,2 @@
+var/log/polls
+var/lib/polls
