@@ -2,14 +2,17 @@
 
 set -e
 
+USER=_djapp
+
 case "$1" in
     configure)
         adduser --system --disabled-password --disabled-login --home /var/empty \
-                --no-create-home --quiet --force-badname --group _djapp
-        chown _djapp:adm /usr/share/polls/lib/python3.5/site-packages/db.sqlite3
-        chown _djapp:adm /var/log/
+                --no-create-home --quiet --force-badname --group $USER
+        chown $USER:adm /usr/share/polls/lib/python3.5/site-packages/db.sqlite3
+        chown $USER:adm /var/log/polls/
+        chown $USER:adm /var/lib/polls/
         # Execute django migration
-        /usr/bin/polls-admin django-admin migrate
+        sudo -u $USER /usr/bin/polls-admin django-admin migrate
         ;;
 esac
 
